@@ -1,13 +1,10 @@
-import React, { Component } from "react";
-import logo from "./logo.svg";
-import "./App.css";
-import styled from "styled-components";
+import React, { Component } from "react"
+import styled from "styled-components"
+import MathJax from "react-mathjax2"
 
-import MathJax from "react-mathjax2";
+const tex = `f(x) = \\int_{-\\infty}^\\infty\\hat f(\\xi)\\,e^{2 \\pi i \\xi x}\\,d\\xi`
 
-const tex = `f(x) = \\int_{-\\infty}^\\infty\\hat f(\\xi)\\,e^{2 \\pi i \\xi x}\\,d\\xi`;
-
-const K = styled.div`
+const Wrapper = styled.div`
   padding: 64px;
   display: flex;
   flex-direction: column;
@@ -16,7 +13,7 @@ const K = styled.div`
     margin-top: 64px;
     font-size: 72px !important;
   }
-`;
+`
 
 const Input = styled.input`
   font-size: 32px;
@@ -30,39 +27,27 @@ const Input = styled.input`
   &:focus {
     border: 0;
   }
-`;
+`
 
 class App extends Component {
   state = {
     latex: tex
-  };
+  }
 
   inputHandler = e => {
-    this.setState({ latex: e.target.value });
-  };
+    this.setState({ latex: e.target.value })
+  }
 
   render() {
     return (
-      <K>
-        <MathJax.Context
-          input="tex"
-          options={{
-            showProcessingMessages: false,
-            TeX: {
-              TagSide: "right"
-            }
-          }}
-        >
+      <Wrapper>
+        <MathJax.Context input="tex">
           <MathJax.Node inline>{this.state.latex}</MathJax.Node>
         </MathJax.Context>
-        <Input
-          placeholder="Dale a las Maths"
-          value={this.state.latex}
-          onChange={this.inputHandler}
-        />
-      </K>
-    );
+        <Input placeholder="Dale a las Maths" value={this.state.latex} onChange={this.inputHandler} />
+      </Wrapper>
+    )
   }
 }
 
-export default App;
+export default App
